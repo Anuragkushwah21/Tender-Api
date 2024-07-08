@@ -17,7 +17,7 @@ class AdminController {
         await result.save();
         res.status(201).json({
           status: "SUCCESS",
-          message: "BID SUCCESSFULL POST",
+          message: "Tender SUCCESSFULLY POST",
         });
       } else {
         res
@@ -26,7 +26,7 @@ class AdminController {
       }
       // console.log(req.body)
     } catch (error) {
-      console.log(error);
+      res.status(400).json({ status: "failed", message: error });
     }
   };
   static tenderDisplay = async (req, res) => {
@@ -39,9 +39,16 @@ class AdminController {
   };
   static tenderDelete = async (req, res) => {
     try {
-      const AdminTender = await TenderModel.findByIdAndDelete(req.params.id);
-
-      res.status(201).json({
+      const id = req.params.id;
+      const AdminTender = await TenderModel.findById(id);
+      if (!AdminTender) {
+        return res.status(404).json({
+          status: "failed",
+          message: "User not Found 🐧🐧 ",
+        });
+      }
+      await TenderModel.findByIdAndDelete(id);
+      res.status(200).json({
         status: "success",
         message: "Tender delete successfully 🐧🐧 ",
         AdminTender,
@@ -73,6 +80,18 @@ class AdminController {
       res.json(updatedTender);
     } catch (error) {
       res.status(400).json({ message: error.message });
+    }
+  };
+  static getTenderById = async (req, res) => {
+    try {
+      const tender = await TenderModel.findById(req.params.id);
+      if (!tender) {
+        return res.status(400).json({ message: "Tender not found" });
+      }
+      res.status(200).json(tender);
+    } catch (error) {
+      console.log(error.message);
+      res.status(400).json({ status: "failed", message: error.message });
     }
   };
 }
