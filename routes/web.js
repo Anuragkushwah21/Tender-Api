@@ -19,8 +19,7 @@ route.post("/tenderinsert", AdminController.tenderinsert);
 route.get("/tenderDisplay", AdminController.tenderDisplay);
 route.post("/tenderDelete/:id", AdminController.tenderDelete);
 route.get("/getSingleTender/:id", AdminController.getSingleTender);
-route.post("/getTenderById/:id", AdminController.getSingleTender);
-route.get("/tenderUpdate/:id", AdminController.tenderUpdate);
+route.post("/tenderUpdate/:id", AdminController.tenderUpdate);
 
 
 module.exports = route;

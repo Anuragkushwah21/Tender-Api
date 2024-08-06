@@ -82,18 +82,6 @@ class AdminController {
       res.status(400).json({ message: error.message });
     }
   };
-  static getTenderById = async (req, res) => {
-    try {
-      const tender = await TenderModel.findById(req.params.id);
-      if (!tender) {
-        return res.status(400).json({ message: "Tender not found" });
-      }
-      res.status(200).json(tender);
-    } catch (error) {
-      console.log(error.message);
-      res.status(400).json({ status: "failed", message: error.message });
-    }
-  };
 }
 
 module.exports = AdminController;
