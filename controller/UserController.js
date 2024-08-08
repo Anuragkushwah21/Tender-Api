@@ -26,6 +26,19 @@ class UserController {
               confirmpassword: confirmpassword,
             });
             await result.save();
+            const token = jwt.sign(
+              { ID: result._id ,email:result.email },
+              "anuragkushwah9669907552asdfghjkzxcvbnm"
+            );
+            // console.log(token);
+            res.cookie("token", token);
+
+            res.status(201).json({
+              status: "success",
+              message: "Login OK Report",
+              token: token
+            });
+
             res.status(201).json({
               status: "success",
               message: "Registaration successfull plz login",
